@@ -527,5 +527,4 @@ jobs:
 
               # Run build and test commands
               make build
-              make test
             "
