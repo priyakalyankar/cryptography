@@ -512,19 +512,20 @@ jobs:
       - name: Build and Test on ppc64le
         run: |
           docker run --rm --platform linux/ppc64le \
-          -v $(pwd):/workspace \
-          -w /workspace \
-          registry.access.redhat.com/ubi9/ubi:9.3 bash -c "
-            # Install make and any other required dependencies
-            echo 'Installing dependencies...'
-            yum install -y make gcc
+            -v $(pwd):/workspace \
+            -w /workspace \
+            registry.access.redhat.com/ubi9/ubi:9.3 bash -c "
+              # Install make and other required dependencies
+              yum install -y make gcc
 
-            # Debugging to check installation
-            make --version
+              # Debugging to check Makefile presence
+              echo 'Listing contents of /workspace:'
+              ls -l /workspace
 
-            # Replace with your specific CI commands
-            echo 'Running on ppc64le architecture'
-            # Example commands; replace with your build/test commands
-            make build
-            make test
-          "
+              # Running on ppc64le architecture
+              echo 'Running on ppc64le architecture'
+
+              # Run build and test commands
+              make build
+              make test
+            "
