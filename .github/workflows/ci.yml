@@ -488,7 +488,7 @@ jobs:
           path: rust-coverage
           if-no-files-found: ignore
         if: ${{ failure() && steps.combinerustcoverage.outcome == 'failure' }}
-        
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -510,14 +510,21 @@ jobs:
 
       # Run tests inside a ppc64le container
       - name: Build and Test on ppc64le
-        run: |
+         run: |
           docker run --rm --platform linux/ppc64le \
-            -v $(pwd):/workspace \
-            -w /workspace \
-            registry.access.redhat.com/ubi9/ubi:9.3 bash -c "
-              # Replace with your specific CI commands
-              echo 'Running on ppc64le architecture'
-              # Example commands; replace with your build/test commands
-              make build
-              make test
-            "
+          -v $(pwd):/workspace \
+          -w /workspace \
+          registry.access.redhat.com/ubi9/ubi:9.3 bash -c "
+            # Install make and any other required dependencies
+            echo 'Installing dependencies...'
+            yum install -y make gcc
+
+            # Debugging to check installation
+            make --version
+
+            # Replace with your specific CI commands
+            echo 'Running on ppc64le architecture'
+            # Example commands; replace with your build/test commands
+            make build
+            make test
+          "
