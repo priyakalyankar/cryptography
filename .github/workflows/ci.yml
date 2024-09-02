@@ -504,13 +504,13 @@ jobs:
 
       # Install QEMU dependencies on the runner
       - name: Install QEMU dependencies
-        run: |
+        run: 
           sudo apt-get update
           sudo apt-get install -y qemu-system-ppc qemu-user-static
 
       # Run tests inside a ppc64le container
       - name: Build and Test on ppc64le
-         run: |
+         run: 
           docker run --rm --platform linux/ppc64le \
           -v $(pwd):/workspace \
           -w /workspace \
